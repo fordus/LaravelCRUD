@@ -60,12 +60,67 @@
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus"></i> Registrar cliente
+                        <i class="fa fa-plus"></i> Registrar usuario
                     </button>
                 </div>
             </div>
         </form>
     </div>
+</div>    
+
+<div class="col-md-12">
+<!--mostrar usuarios-->
+@if (count($clientes) > 0)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        Lista de usuarios
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-striped task-table">
+                <thead>
+                    <th>Usuario</th>
+                    <th>DNI</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>E-mail</th>
+                    <th>Acción</th>
+                </thead>
+                <tbody>
+                @foreach ($clientes as $cliente)
+                    <tr>
+                        <td class="table-text"><div>{{ $cliente->name }}</div></td>
+                        <td class="table-text"><div>{{ $cliente->ruc }}</div></td>
+                        <td class="table-text"><div>{{ $cliente->address }}</div></td>
+                        <td class="table-text"><div>{{ $cliente->phone }}</div></td>
+                        <td class="table-text"><div>{{ $cliente->email }}</div></td>
+
+                        <td>
+
+                                <button type="submit" class="btn btn-success" onclick="location.href='clientes/{{ $cliente->id }}'">
+                                    <i class="fa fa-pencil"></i>Editar
+                                </button>
+                            </form>
+
+                            <form action="{{ url('cliente') }}/{{ $cliente->id }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    @endif
+
+</div>
 
     <!-- TODO: Current Tasks -->
 @endsection
